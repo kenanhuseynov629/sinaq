@@ -3,163 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifto - Ağıllı Hədiyyə Köməkçisi</title>
+    <title>Gifto | Mükəmməl Hədiyyə Tap</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
-        
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #f8fafc;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-        }
-
-        .step-transition {
-            transition: all 0.5s ease;
-        }
-
-        .gift-card:hover {
-            transform: translateY(-10px);
-            transition: 0.3s;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        body { font-family: 'Outfit', sans-serif; background: #f9fafb; }
+        .category-btn.active { border-color: #6366f1; background-color: #eef2ff; box-shadow: 0 0 0 2px #6366f1; }
+        .gradient-btn { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-3xl font-extrabold tracking-tighter gradient-text">GIFTO</h1>
-        <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
-            <a href="#" class="hover:text-indigo-600 transition">Trendlər</a>
-            <a href="#" class="hover:text-indigo-600 transition">Haqqımızda</a>
-        </div>
+    <nav class="p-6 text-center">
+        <h1 class="text-4xl font-black text-indigo-600 tracking-tighter">GIFTO</h1>
     </nav>
 
-    <main class="max-w-4xl mx-auto mt-12 px-4 mb-20">
+    <main class="max-w-2xl mx-auto px-4 pb-20">
         
-        <div id="intro-section" class="text-center animate__animated animate__fadeIn">
-            <h2 class="text-5xl font-extrabold text-gray-900 mb-6">Mükəmməl hədiyyəni <br><span class="gradient-text">saniyələr içində tap.</span></h2>
-            <p class="text-gray-500 text-lg mb-8">Süni intellekt dəstəkli büdcə və şəxsiyyət analizi ilə seçimini asanlaşdır.</p>
-            <button onclick="startTest()" class="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition transform hover:scale-105 shadow-xl shadow-indigo-200">
-                Testə Başla ✨
-            </button>
+        <div id="hero" class="text-center py-10 animate__animated animate__fadeIn">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Hədiyyə tapmaq indi daha asandır.</h2>
+            <p class="text-gray-500 mb-8 text-lg">Bir neçə sualla ən uyğun variantları kəşf et.</p>
+            <button onclick="startApp()" class="gradient-btn text-white px-12 py-4 rounded-2xl font-bold shadow-xl hover:opacity-90 transition transform hover:scale-105">Testə Başla ✨</button>
         </div>
 
-        <div id="test-section" class="hidden glass-card p-8 md:p-12 rounded-3xl animate__animated animate__fadeInUp">
-            <div class="mb-8">
-                <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-indigo-600 w-1/3 transition-all duration-500"></div>
+        <div id="quiz-container" class="hidden bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl animate__animated animate__fadeInUp">
+            
+            <div id="step-1" class="quiz-step">
+                <h3 class="text-2xl font-bold mb-6 italic text-gray-800">Büdcəniz nə qədərdir?</h3>
+                <div class="grid gap-4">
+                    <button onclick="saveData('budget', 'low', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
+                        <span>Qənaətcil (Aşağı)</span> <span class="text-indigo-600 font-bold">₼</span>
+                    </button>
+                    <button onclick="saveData('budget', 'mid', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
+                        <span>Standart (Orta)</span> <span class="text-indigo-600 font-bold">₼₼</span>
+                    </button>
+                    <button onclick="saveData('budget', 'high', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
+                        <span>Premium (Yuxarı)</span> <span class="text-indigo-600 font-bold">₼₼₼</span>
+                    </button>
                 </div>
             </div>
 
-            <div id="question-container">
-                <div id="step-1" class="step-transition">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-800">1. Büdcəniz nə qədərdir?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onclick="nextStep(2, 'low')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition text-left">
-                            <span class="block font-bold">Qənaətcil</span>
-                            <span class="text-sm text-gray-500">0 - 50 AZN</span>
-                        </button>
-                        <button onclick="nextStep(2, 'mid')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition text-left">
-                            <span class="block font-bold">Orta</span>
-                            <span class="text-sm text-gray-500">50 - 200 AZN</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="step-2" class="hidden step-transition">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-800">2. O necə biridir?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button onclick="nextStep(3, 'tech')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition">Texnologiya həvəskarı 💻</button>
-                        <button onclick="nextStep(3, 'art')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition">Yaradıcı / İncəsənət 🎨</button>
-                        <button onclick="nextStep(3, 'book')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition">Kitab qurdu 📚</button>
-                        <button onclick="nextStep(3, 'sport')" class="p-4 border-2 border-gray-100 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition">Aktiv / İdmançı 🏃‍♂️</button>
-                    </div>
-                </div>
-
-                <div id="loading" class="hidden text-center py-12">
-                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 mb-4"></div>
-                    <p class="text-gray-600 font-medium">Sizə uyğun hədiyyələr təhlil edilir...</p>
+            <div id="step-2" class="hidden quiz-step">
+                <h3 class="text-2xl font-bold mb-6 text-gray-800">Kimin üçün hədiyyə axtarırsınız?</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="saveData('gender', 'woman', 3)" class="p-8 border-2 border-gray-100 rounded-2xl hover:border-pink-400 text-center transition">
+                        <span class="text-4xl block mb-2">👩</span> Qadın
+                    </button>
+                    <button onclick="saveData('gender', 'man', 3)" class="p-8 border-2 border-gray-100 rounded-2xl hover:border-blue-400 text-center transition">
+                        <span class="text-4xl block mb-2">👨</span> Kişi
+                    </button>
                 </div>
             </div>
+
+            <div id="step-3" class="hidden quiz-step">
+                <h3 class="text-2xl font-bold mb-2 text-gray-800">Maraq dairələri hansılardır?</h3>
+                <p class="text-sm text-gray-400 mb-6">Ən azı 2 seçim edin</p>
+                <div id="interest-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    </div>
+                <button id="final-btn" onclick="showResults()" class="mt-8 w-full gradient-btn text-white py-4 rounded-xl font-bold opacity-50 cursor-not-allowed transition" disabled>Nəticələri Gör</button>
+            </div>
+
         </div>
 
-        <div id="result-section" class="hidden animate__animated animate__fadeIn">
-            <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Sizin üçün ən yaxşı seçimlər 🎁</h3>
-            <div id="gift-results" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                </div>
-            <div class="mt-12 text-center">
-                <button onclick="location.reload()" class="text-indigo-600 font-bold hover:underline">Yenidən başla</button>
-            </div>
+        <div id="results" class="hidden animate__animated animate__fadeIn">
+            <h3 class="text-3xl font-bold text-center mb-8">Sizin üçün ən yaxşı təkliflər 🎁</h3>
+            <div id="gift-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            <button onclick="location.reload()" class="mt-12 block mx-auto text-indigo-600 font-bold underline">Yenidən başla</button>
         </div>
 
     </main>
 
     <script>
-        let userData = { budget: '', personality: '' };
+        let selection = { budget: '', gender: '', interests: [] };
+        const categories = ["Texnologiya", "Kitab", "Moda", "İdman", "İncəsənət", "Mətbəx", "Səyahət", "Oyun", "Musiqi", "Dekor", "Qulluq", "Fotoqrafiya"];
 
-        function startTest() {
-            document.getElementById('intro-section').classList.add('hidden');
-            document.getElementById('test-section').classList.remove('hidden');
+        function startApp() {
+            document.getElementById('hero').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
         }
 
-        function nextStep(step, value) {
-            if(step === 2) {
-                userData.budget = value;
-                document.getElementById('step-1').classList.add('hidden');
-                document.getElementById('step-2').classList.remove('hidden');
-                document.getElementById('progress-bar').style.width = '66%';
-            } else if(step === 3) {
-                userData.personality = value;
-                showResults();
+        function saveData(key, value, nextStep) {
+            selection[key] = value;
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`step-${nextStep}`).classList.remove('hidden');
+            
+            if(nextStep === 3) renderInterests();
+        }
+
+        function renderInterests() {
+            const grid = document.getElementById('interest-grid');
+            grid.innerHTML = categories.map(cat => `
+                <button onclick="toggleInterest(this, '${cat}')" class="category-btn p-3 border border-gray-200 rounded-xl text-sm font-medium transition hover:bg-gray-50">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function toggleInterest(el, cat) {
+            if(selection.interests.includes(cat)) {
+                selection.interests = selection.interests.filter(i => i !== cat);
+                el.classList.remove('active');
+            } else {
+                selection.interests.push(cat);
+                el.classList.add('active');
+            }
+            
+            const btn = document.getElementById('final-btn');
+            if(selection.interests.length >= 2) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
             }
         }
 
         function showResults() {
-            document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('progress-bar').style.width = '100%';
-
-            // Simulyasiya edilmiş gecikmə
-            setTimeout(() => {
-                document.getElementById('test-section').classList.add('hidden');
-                document.getElementById('result-section').classList.remove('hidden');
-                renderGifts();
-            }, 1500);
-        }
-
-        function renderGifts() {
-            const resultsDiv = document.getElementById('gift-results');
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results').classList.remove('hidden');
+            
+            const giftGrid = document.getElementById('gift-grid');
+            // Nümunə hədiyyə bazası
             const gifts = [
-                { name: "Simsiz Qulaqlıq", type: "tech", price: "mid", icon: "🎧" },
-                { name: "Eskiz Dəsti", type: "art", price: "low", icon: "✏️" },
-                { name: "Kindle Elektron Kitab", type: "book", price: "mid", icon: "📖" },
-                { name: "Yoga Matı", type: "sport", price: "low", icon: "🧘" },
-                { name: "Mexaniki Klaviatura", type: "tech", price: "mid", icon: "⌨️" },
-                { name: "Yağlı Boya Dəsti", type: "art", price: "mid", icon: "🎨" }
+                { name: "Simsiz Qulaqlıq", cat: "Texnologiya", price: "mid" },
+                { name: "Dəri Pulqabı", cat: "Moda", price: "mid" },
+                { name: "Səyahət Çantası", cat: "Səyahət", price: "high" },
+                { name: "Eskiz Dəsti", cat: "İncəsənət", price: "low" },
+                { name: "Ağıllı Saat", cat: "Texnologiya", price: "high" },
+                { name: "Yoga Matı", cat: "İdman", price: "low" }
             ];
 
-            // Filterləmə məntiqi
-            const filtered = gifts.filter(g => g.type === userData.personality || g.price === userData.budget).slice(0, 3);
-
-            resultsDiv.innerHTML = filtered.map(gift => `
-                <div class="gift-card bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-center">
-                    <div class="text-5xl mb-4">${gift.icon}</div>
-                    <h4 class="text-xl font-bold text-gray-800">${gift.name}</h4>
-                    <p class="text-gray-400 text-sm mt-2">Bu seçim onun üçün mükəmməldir!</p>
-                    <button class="mt-6 w-full py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-black transition">Baxış</button>
+            giftGrid.innerHTML = gifts.map(g => `
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-2xl mb-4">🎁</div>
+                    <h4 class="text-xl font-bold text-gray-800">${g.name}</h4>
+                    <p class="text-sm text-indigo-500 font-semibold mt-1">${g.cat}</p>
+                    <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg text-sm transition hover:bg-black">Mağazaya bax</button>
                 </div>
             `).join('');
         }
