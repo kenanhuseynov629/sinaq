@@ -3,146 +3,1059 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifto | Mükəmməl Hədiyyə Tap</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <title>Gifto - Ən Yaxşı Hədiyyəni Tap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-        body { font-family: 'Outfit', sans-serif; background: #f9fafb; }
-        .category-btn.active { border-color: #6366f1; background-color: #eef2ff; box-shadow: 0 0 0 2px #6366f1; }
-        .gradient-btn { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #2C3E50;
+            --light: #F7F9FC;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            overflow-x: hidden;
+            color: var(--dark);
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            left: 10%;
+            top: 20%;
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            left: 70%;
+            top: 60%;
+            width: 120px;
+            height: 120px;
+            background: var(--secondary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            left: 40%;
+            top: 80%;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            transform: rotate(45deg);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: white;
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-top: 50px;
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .quiz-container.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .question {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .option-card:hover::before,
+        .option-card.selected::before {
+            opacity: 1;
+        }
+
+        .option-card:hover,
+        .option-card.selected {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: transparent;
+        }
+
+        .option-card:hover *,
+        .option-card.selected * {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .option-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+
+        .option-card p {
+            font-size: 0.9rem;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        /* Budget Slider */
+        .budget-slider {
+            margin: 40px 0;
+        }
+
+        .budget-display {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            border-radius: 10px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--gradient);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .budget-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Results Section */
+        .results-container {
+            display: none;
+            padding: 60px 0;
+        }
+
+        .results-container.active {
+            display: block;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .results-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .gift-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .gift-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .gift-info {
+            padding: 25px;
+        }
+
+        .gift-price {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .gift-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .gift-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .gift-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .match-score {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            position: absolute;
+            animation: confetti-fall 3s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .quiz-container {
+                padding: 30px 20px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Personality Types Display */
+        .personality-result {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .personality-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .personality-type {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .restart-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
+<base target="_blank">
 </head>
 <body>
+    <div class="bg-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
 
-    <nav class="p-6 text-center">
-        <h1 class="text-4xl font-black text-indigo-600 tracking-tighter">GIFTO</h1>
-    </nav>
+    <header>
+        <div class="logo" onclick="location.reload()">🎁 Gifto</div>
+        <nav>
+            <a href="#how">Necə İşləyir?</a>
+            <a href="#about">Haqqımızda</a>
+            <a href="#contact">Əlaqə</a>
+        </nav>
+    </header>
 
-    <main class="max-w-2xl mx-auto px-4 pb-20">
-        
-        <div id="hero" class="text-center py-10 animate__animated animate__fadeIn">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Hədiyyə tapmaq indi daha asandır.</h2>
-            <p class="text-gray-500 mb-8 text-lg">Bir neçə sualla ən uyğun variantları kəşf et.</p>
-            <button onclick="startApp()" class="gradient-btn text-white px-12 py-4 rounded-2xl font-bold shadow-xl hover:opacity-90 transition transform hover:scale-105">Testə Başla ✨</button>
-        </div>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <h1>Hədiyyə Seçmək<br>İncilikdir</h1>
+            <p>İntuitiv testimizlə sevdiyiniz insanın şəxsiyyətinə və büdcənizə ən uyğun mükəmməl hədiyyəni tapın. Süni intellekt dəstəkli tövsiyələrimizlə heç vaxt yanlış hədiyyə almayacaqsınız.</p>
+            <a href="#" class="cta-button" onclick="startQuiz()">Hədiyyəni Tap 🎯</a>
+        </section>
 
-        <div id="quiz-container" class="hidden bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl animate__animated animate__fadeInUp">
-            
-            <div id="step-1" class="quiz-step">
-                <h3 class="text-2xl font-bold mb-6 italic text-gray-800">Büdcəniz nə qədərdir?</h3>
-                <div class="grid gap-4">
-                    <button onclick="saveData('budget', 'low', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
-                        <span>Qənaətcil (Aşağı)</span> <span class="text-indigo-600 font-bold">₼</span>
-                    </button>
-                    <button onclick="saveData('budget', 'mid', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
-                        <span>Standart (Orta)</span> <span class="text-indigo-600 font-bold">₼₼</span>
-                    </button>
-                    <button onclick="saveData('budget', 'high', 2)" class="p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-400 text-left flex justify-between items-center transition">
-                        <span>Premium (Yuxarı)</span> <span class="text-indigo-600 font-bold">₼₼₼</span>
-                    </button>
-                </div>
+        <!-- Quiz Section -->
+        <div class="quiz-container" id="quiz">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
             </div>
 
-            <div id="step-2" class="hidden quiz-step">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800">Kimin üçün hədiyyə axtarırsınız?</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <button onclick="saveData('gender', 'woman', 3)" class="p-8 border-2 border-gray-100 rounded-2xl hover:border-pink-400 text-center transition">
-                        <span class="text-4xl block mb-2">👩</span> Qadın
-                    </button>
-                    <button onclick="saveData('gender', 'man', 3)" class="p-8 border-2 border-gray-100 rounded-2xl hover:border-blue-400 text-center transition">
-                        <span class="text-4xl block mb-2">👨</span> Kişi
-                    </button>
-                </div>
-            </div>
-
-            <div id="step-3" class="hidden quiz-step">
-                <h3 class="text-2xl font-bold mb-2 text-gray-800">Maraq dairələri hansılardır?</h3>
-                <p class="text-sm text-gray-400 mb-6">Ən azı 2 seçim edin</p>
-                <div id="interest-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <!-- Question 1: Relationship -->
+            <div class="question active" data-step="1">
+                <h2>Hədiyyəni kimə alırsınız? 👥</h2>
+                <div class="options">
+                    <div class="option-card" onclick="selectOption('relationship', 'partner')">
+                        <span class="option-icon">💑</span>
+                        <h3>Həyat Yoldaşı/Sevgili</h3>
+                        <p>Romantik və xüsusi bir hədiyyə</p>
                     </div>
-                <button id="final-btn" onclick="showResults()" class="mt-8 w-full gradient-btn text-white py-4 rounded-xl font-bold opacity-50 cursor-not-allowed transition" disabled>Nəticələri Gör</button>
+                    <div class="option-card" onclick="selectOption('relationship', 'family')">
+                        <span class="option-icon">👨‍👩‍👧‍👦</span>
+                        <h3>Ailə Üzvü</h3>
+                        <p>Ana, ata, qardaş və ya bacı</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('relationship', 'friend')">
+                        <span class="option-icon">🤝</span>
+                        <h3>Dost</h3>
+                        <p>Yaxın və ya yeni tanış</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('relationship', 'colleague')">
+                        <span class="option-icon">💼</span>
+                        <h3>Əmkdaş</h3>
+                        <p>İş yoldaşı və ya rəhbər</p>
+                    </div>
+                </div>
             </div>
 
+            <!-- Question 2: Personality -->
+            <div class="question" data-step="2">
+                <h2>Onun şəxsiyyəti necədir? 🧠</h2>
+                <div class="options">
+                    <div class="option-card" onclick="selectOption('personality', 'creative')">
+                        <span class="option-icon">🎨</span>
+                        <h3>Yaradıcı</h3>
+                        <p>Sənət, dizayn və yeniliklərə maraqlı</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('personality', 'practical')">
+                        <span class="option-icon">🔧</span>
+                        <h3>Praktik</h3>
+                        <p>Faydalı və funksional şeyləri sevən</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('personality', 'adventurous')">
+                        <span class="option-icon">🏔️</span>
+                        <h3>Macəraçı</h3>
+                        <p>Səyahət və yeni təcrübələr axtaran</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('personality', 'tech')">
+                        <span class="option-icon">📱</span>
+                        <h3>Texnologiya Həvəskarı</h3>
+                        <p>Gadget və yenilikləri izləyən</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3: Occasion -->
+            <div class="question" data-step="3">
+                <h2>Hansı münasibətlə? 🎉</h2>
+                <div class="options">
+                    <div class="option-card" onclick="selectOption('occasion', 'birthday')">
+                        <span class="option-icon">🎂</span>
+                        <h3>Ad Günü</h3>
+                        <p>Xüsusi bir il üçün xüsusi hədiyyə</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('occasion', 'anniversary')">
+                        <span class="option-icon">💍</span>
+                        <h3>İl Dönümü</h3>
+                        <p>Romantik xatirə</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('occasion', 'holiday')">
+                        <span class="option-icon">🎄</span>
+                        <h3>Bayram</h3>
+                        <p>Yeni il, 8 mart və s.</p>
+                    </div>
+                    <div class="option-card" onclick="selectOption('occasion', 'appreciation')">
+                        <span class="option-icon">💝</span>
+                        <h3>Təşəkkür</h3>
+                        <p>Səbəbsiz, sadəcə sevdiyinizi göstərmək üçün</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4: Budget -->
+            <div class="question" data-step="4">
+                <h2>Büdcəniz necədir? 💰</h2>
+                <div class="budget-slider">
+                    <div class="budget-display" id="budgetValue">100 AZN</div>
+                    <input type="range" min="20" max="1000" value="100" id="budgetRange" oninput="updateBudget(this.value)">
+                    <div class="budget-labels">
+                        <span>20 AZN</span>
+                        <span>500 AZN</span>
+                        <span>1000 AZN</span>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="cta-button" onclick="finishQuiz()">Nəticələri Göstər 🎁</button>
+                </div>
+            </div>
         </div>
 
-        <div id="results" class="hidden animate__animated animate__fadeIn">
-            <h3 class="text-3xl font-bold text-center mb-8">Sizin üçün ən yaxşı təkliflər 🎁</h3>
-            <div id="gift-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-            <button onclick="location.reload()" class="mt-12 block mx-auto text-indigo-600 font-bold underline">Yenidən başla</button>
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <h3>Ən uyğun hədiyyələr axtarılır...</h3>
+            <p>Süni intellekt sizin üçün seçimlər hazırlayır</p>
         </div>
 
-    </main>
+        <!-- Results -->
+        <div class="results-container" id="results">
+            <div class="results-header">
+                <div class="personality-result" id="personalityCard">
+                    <div class="personality-icon" id="personalityIcon">🎨</div>
+                    <div class="personality-type" id="personalityTitle">Yaradıcı Ruh</div>
+                    <p id="personalityDesc">Sizin seçiminiz yaradıcı və orijinal hədiyyələr üzrədir</p>
+                </div>
+                <h2>Sizin üçün seçilmiş hədiyyələr</h2>
+                <p style="color: #666;">Büdcəniz və seçimlərinizə əsasən <span id="resultCount">0</span> hədiyyə tapıldı</p>
+            </div>
+            <div class="gift-grid" id="giftGrid">
+                <!-- Gifts will be inserted here -->
+            </div>
+            <div style="text-align: center;">
+                <button class="restart-btn" onclick="restartQuiz()">Yenidən Başla ↺</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        let selection = { budget: '', gender: '', interests: [] };
-        const categories = ["Texnologiya", "Kitab", "Moda", "İdman", "İncəsənət", "Mətbəx", "Səyahət", "Oyun", "Musiqi", "Dekor", "Qulluq", "Fotoqrafiya"];
+        let currentStep = 1;
+        let answers = {
+            relationship: '',
+            personality: '',
+            occasion: '',
+            budget: 100
+        };
 
-        function startApp() {
-            document.getElementById('hero').classList.add('hidden');
-            document.getElementById('quiz-container').classList.remove('hidden');
-        }
-
-        function saveData(key, value, nextStep) {
-            selection[key] = value;
-            document.querySelectorAll('.quiz-step').forEach(s => s.classList.add('hidden'));
-            document.getElementById(`step-${nextStep}`).classList.remove('hidden');
-            
-            if(nextStep === 3) renderInterests();
-        }
-
-        function renderInterests() {
-            const grid = document.getElementById('interest-grid');
-            grid.innerHTML = categories.map(cat => `
-                <button onclick="toggleInterest(this, '${cat}')" class="category-btn p-3 border border-gray-200 rounded-xl text-sm font-medium transition hover:bg-gray-50">
-                    ${cat}
-                </button>
-            `).join('');
-        }
-
-        function toggleInterest(el, cat) {
-            if(selection.interests.includes(cat)) {
-                selection.interests = selection.interests.filter(i => i !== cat);
-                el.classList.remove('active');
-            } else {
-                selection.interests.push(cat);
-                el.classList.add('active');
+        const giftDatabase = {
+            partner: {
+                creative: [
+                    { name: "Şəxsi Portret Sifarişi", price: 150, icon: "🎨", desc: "Professional rəssam tərəfindən çəkiləcək xüsusi portret", tags: ["Sənət", "Xüsusi", "Romantik"], match: 98 },
+                    { name: "Yaratıcı Master Klass", price: 120, icon: "✂️", desc: "Seramika, şüşə və ya digər sənət növləri üzrə dərs", tags: ["Təcrübə", "Öyrənmə"], match: 95 },
+                    { name: "Premium Rəsm Ləvazimatları", price: 200, icon: "🖌️", desc: "Professional rəng və fırça dəsti", tags: ["Alət", "Professional"], match: 92 }
+                ],
+                practical: [
+                    { name: "Ağıllı Ev Sistemi", price: 250, icon: "🏠", desc: "Ev avtomatlaşdırma starter dəsti", tags: ["Texnologiya", "Faydalı"], match: 96 },
+                    { name: "Premium Mətbəx Robotu", price: 400, icon: "🤖", desc: "Çoxfunksiyalı mətbəx köməkçisi", tags: ["Mətbəx", "Praktik"], match: 94 },
+                    { name: "Təşkilatçı Dəsti", price: 80, icon: "📦", desc: "Ev və ofis üçün organizasiya həlləri", tags: ["Dəst", "Təşkilat"], match: 90 }
+                ],
+                adventurous: [
+                    { name: "Paraşüt Tullanma", price: 300, icon: "🪂", desc: "Tandem paraşüt təcrübəsi", tags: ["Adrenalin", "Təcrübə"], match: 99 },
+                    { name: "Helikopter Turu", price: 500, icon: "🚁", desc: "Şəhər üzərində romantik uçuş", tags: ["Romantik", "Görünüş"], match: 97 },
+                    { name: "Düşərgə Dəsti", price: 180, icon: "⛺", desc: "Premium çadır və düşərgə avadanlığı", tags: ["Təbiət", "Macəra"], match: 93 }
+                ],
+                tech: [
+                    { name: "VR Qulaqlıq", price: 350, icon: "🥽", desc: "Virtual reallıq dəsti", tags: ["Texnologiya", "Oyun"], match: 98 },
+                    { name: "Ağıllı Saat", price: 280, icon: "⌚", desc: "Sağlamlıq izləməli smart saat", tags: ["Qadget", "Sağlamlıq"], match: 96 },
+                    { name: "Drone", price: 450, icon: "🚁", desc: "4K kamera ilə professional drone", tags: ["Foto", "Texnologiya"], match: 94 }
+                ]
+            },
+            family: {
+                creative: [
+                    { name: "Ailə Fotoalbom", price: 90, icon: "📸", desc: "Xüsusi dizayn edilmiş xatirə kitabı", tags: ["Xatirə", "Şəxsi"], match: 97 },
+                    { name: "Dekorativ Əl İşləri", price: 120, icon: "🕯️", desc: "Əl ilə hazırlanmış dekor əşyalar", tags: ["Dekor", "Unikal"], match: 95 }
+                ],
+                practical: [
+                    { name: "Robot Tozsoran", price: 350, icon: "🤖", desc: "Ağıllı təmizlik robotu", tags: ["Ev", "Avtomat"], match: 98 },
+                    { name: "Hava Təmizləyici", price: 200, icon: "🌬️", desc: "Allergen filtri ilə təmiz hava", tags: ["Sağlamlıq", "Ev"], match: 94 }
+                ],
+                adventurous: [
+                    { name: "Termal Spa Günü", price: 180, icon: "♨️", desc: "İki nəfərlik spa və masaj", tags: ["Rahatlıq", "Sağlamlıq"], match: 96 },
+                    { name: "Şərab Turu", price: 150, icon: "🍷", desc: "Şərab zavodu və dadma", tags: ["Təcrübə", "Gourmet"], match: 92 }
+                ],
+                tech: [
+                    { name: "Tablet", price: 400, icon: "📱", desc: "Ən son nəsil tablet", tags: ["Elektron", "Əyləncə"], match: 95 },
+                    { name: "Ağıllı Çaynik", price: 100, icon: "🫖", desc: "Telefonla idarə olunan çaynik", tags: ["Ev", "İoT"], match: 91 }
+                ]
+            },
+            friend: {
+                creative: [
+                    { name: "Szketchbook Dəsti", price: 60, icon: "📒", desc: "Premium kağız və markerlər", tags: ["Sənət", "Hobbi"], match: 94 },
+                    { name: "DIY Set", price: 45, icon: "🧶", desc: "Özün hazırla dəstləri", tags: ["Əl işi", "Maraqlı"], match: 92 }
+                ],
+                practical: [
+                    { name: "Termos", price: 70, icon: "🥤", desc: "24 saat saxlayan premium termos", tags: ["Gündəlik", "Faydalı"], match: 93 },
+                    { name: "Portativ Batareya", price: 50, icon: "🔋", desc: "20000mAh güclü powerbank", tags: ["Texnologiya", "Lazımlı"], match: 91 }
+                ],
+                adventurous: [
+                    { name: "Escape Room", price: 80, icon: "🔐", desc: "Dostlarla oyun təcrübəsi", tags: ["Oyun", "Komanda"], match: 97 },
+                    { name: "Karting", price: 60, icon: "🏎️", desc: "Yarış təcrübəsi", tags: ["Sürət", "Adrenalin"], match: 95 }
+                ],
+                tech: [
+                    { name: "Bluetooth Speaker", price: 120, icon: "🔊", desc: "Portativ musiqi sistemi", tags: ["Musiqi", "Parti"], match: 96 },
+                    { name: "LED Lamba", price: 40, icon: "💡", desc: "Rəng dəyişən ambient işıq", tags: ["Dekor", "Mood"], match: 89 }
+                ]
+            },
+            colleague: {
+                creative: [
+                    { name: "Masaüstü Oyun", price: 35, icon: "♟️", desc: "Strateji masa oyunu", tags: ["Ofis", "Əyləncə"], match: 90 },
+                    { name: "Planlayıcı", price: 45, icon: "📅", desc: "Premium təşkilatçı dəftər", tags: ["İş", "Planlaşdırma"], match: 93 }
+                ],
+                practical: [
+                    { name: "Kofe Maşını", price: 150, icon: "☕", desc: "Ofis üçün kapsul kofe", tags: ["Kofe", "Ofis"], match: 95 },
+                    { name: "Masaüstü Əşyalar", price: 60, icon: "🖇️", desc: "Təşkilatçı və aksesuar dəsti", tags: ["Masa", "Dəst"], match: 92 }
+                ],
+                adventurous: [
+                    { name: "Komanda İdmanı", price: 100, icon: "⚽", desc: "Birlikdə idman fəaliyyəti", tags: ["Komanda", "Fəaliyyət"], match: 88 },
+                    { name: "Puzzle", price: 40, icon: "🧩", desc: "1000 hissəli çətin puzzle", tags: ["Məntiq", "Səbir"], match: 85 }
+                ],
+                tech: [
+                    { name: "Webcam", price: 130, icon: "📷", desc: "HD keyfiyyətli kamera", tags: ["Remote", "İş"], match: 94 },
+                    { name: "Ergonomik Mouse", price: 80, icon: "🖱️", desc: "Sağlamlıq üçün dizayn edilmiş", tags: ["Sağlamlıq", "İş"], match: 91 }
+                ]
             }
-            
-            const btn = document.getElementById('final-btn');
-            if(selection.interests.length >= 2) {
-                btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            } else {
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
+        };
+
+        function startQuiz() {
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('quiz').classList.add('active');
+            updateProgress();
+        }
+
+        function selectOption(category, value) {
+            answers[category] = value;
+
+            // Visual feedback
+            const cards = document.querySelectorAll('.question.active .option-card');
+            cards.forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            // Wait for animation then next
+            setTimeout(() => {
+                nextStep();
+            }, 400);
+        }
+
+        function updateBudget(value) {
+            answers.budget = parseInt(value);
+            document.getElementById('budgetValue').textContent = value + ' AZN';
+        }
+
+        function nextStep() {
+            const currentQuestion = document.querySelector('.question.active');
+            currentQuestion.classList.remove('active');
+
+            currentStep++;
+            const nextQuestion = document.querySelector(`[data-step="${currentStep}"]`);
+            if (nextQuestion) {
+                nextQuestion.classList.add('active');
+                updateProgress();
             }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / 4) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function finishQuiz() {
+            document.getElementById('quiz').classList.remove('active');
+            document.getElementById('loading').classList.add('active');
+
+            // Simulate AI processing
+            setTimeout(() => {
+                document.getElementById('loading').classList.remove('active');
+                showResults();
+                createConfetti();
+            }, 2000);
         }
 
         function showResults() {
-            document.getElementById('quiz-container').classList.add('hidden');
-            document.getElementById('results').classList.remove('hidden');
-            
-            const giftGrid = document.getElementById('gift-grid');
-            // Nümunə hədiyyə bazası
-            const gifts = [
-                { name: "Simsiz Qulaqlıq", cat: "Texnologiya", price: "mid" },
-                { name: "Dəri Pulqabı", cat: "Moda", price: "mid" },
-                { name: "Səyahət Çantası", cat: "Səyahət", price: "high" },
-                { name: "Eskiz Dəsti", cat: "İncəsənət", price: "low" },
-                { name: "Ağıllı Saat", cat: "Texnologiya", price: "high" },
-                { name: "Yoga Matı", cat: "İdman", price: "low" }
-            ];
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.classList.add('active');
 
-            giftGrid.innerHTML = gifts.map(g => `
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-2xl mb-4">🎁</div>
-                    <h4 class="text-xl font-bold text-gray-800">${g.name}</h4>
-                    <p class="text-sm text-indigo-500 font-semibold mt-1">${g.cat}</p>
-                    <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg text-sm transition hover:bg-black">Mağazaya bax</button>
+            // Update personality card
+            const personalityIcons = {
+                creative: '🎨',
+                practical: '🔧',
+                adventurous: '🏔️',
+                tech: '📱'
+            };
+
+            const personalityNames = {
+                creative: 'Yaradıcı Ruh',
+                practical: 'Praktik Ağıl',
+                adventurous: 'Macəra Axtaran',
+                tech: 'Texno Fil'
+            };
+
+            document.getElementById('personalityIcon').textContent = personalityIcons[answers.personality];
+            document.getElementById('personalityTitle').textContent = personalityNames[answers.personality];
+
+            // Get gifts based on answers
+            let gifts = giftDatabase[answers.relationship][answers.personality] || [];
+
+            // Filter by budget
+            gifts = gifts.filter(gift => gift.price <= answers.budget);
+
+            // Add some random variety if not enough gifts
+            if (gifts.length < 3) {
+                const allGifts = Object.values(giftDatabase).flatMap(r => Object.values(r).flat());
+                const budgetGifts = allGifts.filter(g => g.price <= answers.budget && !gifts.includes(g));
+                gifts = [...gifts, ...budgetGifts.slice(0, 3 - gifts.length)];
+            }
+
+            // Sort by match score
+            gifts.sort((a, b) => b.match - a.match);
+
+            document.getElementById('resultCount').textContent = gifts.length;
+
+            const grid = document.getElementById('giftGrid');
+            grid.innerHTML = gifts.map((gift, index) => `
+                <div class="gift-card" style="animation: fadeInUp 0.5s ease ${index * 0.1}s forwards; opacity: 0;">
+                    <div class="match-score">${gift.match}% uyğun</div>
+                    <div class="gift-image">${gift.icon}</div>
+                    <div class="gift-info">
+                        <span class="gift-price">${gift.price} AZN</span>
+                        <h3 class="gift-name">${gift.name}</h3>
+                        <p class="gift-desc">${gift.desc}</p>
+                        <div class="gift-tags">
+                            ${gift.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
                 </div>
             `).join('');
+
+            // Scroll to results
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
         }
+
+        function createConfetti() {
+            const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#667eea', '#764ba2'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        function restartQuiz() {
+            currentStep = 1;
+            answers = { relationship: '', personality: '', occasion: '', budget: 100 };
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('hero').style.display = 'block';
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+            document.querySelector('[data-step="1"]').classList.add('active');
+            document.getElementById('progress').style.width = '0%';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
     </script>
 </body>
 </html>
